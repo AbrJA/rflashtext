@@ -1,0 +1,20 @@
+Package: rflashtext
+Title: Aho-Corasick algorithm implementation in pure R for faster finding and replacing of words in a text 
+Version: 0.0.0.9000
+Authors@R: 
+    person(given = "Abraham",
+           family = "Jaimes",
+           role = c("aut", "cre"),
+           email = "ajaimes@occ.com.mx",
+           comment = c(ORCID = "YOUR-ORCID-ID"))
+Description: What the package does (one paragraph).
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1
+Imports: 
+    R6
+Suggests: 
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
