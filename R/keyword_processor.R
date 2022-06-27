@@ -1,3 +1,4 @@
+#' @importFrom R6 R6Class
 #' @name keyword_processor
 #' @title FlashText algorithm to find and replace words
 #' @description Based on the python library \href{https://github.com/vi3k6i5/flashtext}{flashtext}. To see more details about the algorithm visit: \href{https://arxiv.org/abs/1711.00046}{FlashText}
@@ -40,7 +41,7 @@ keyword_processor <- R6::R6Class(
     },
     #' @param attrs character vector. Options are subsets of `c("all", "id", "word_chars", "dict", "ignore_case", "dict_size")`. Default `"all"`.
     #'
-    #' @return list with the values of the `attrs`. Usefull to save `dict` and reuse it or to check the `dict_size`.
+    #' @return list with the values of the `attrs`. Useful to save `dict` and reuse it or to check the `dict_size`.
     #' @export
     #'
     #' @examples
@@ -136,7 +137,7 @@ keyword_processor <- R6::R6Class(
       return(words)
     },
     #' @param sentence character. Text to find the `keys` previously defined. Not vectorized.
-    #' @param span_info logical. `TRUE` to retrieve the `words` and the position of the matches. `FALSE` to only retrive the `words`. Default `TRUE`.
+    #' @param span_info logical. `TRUE` to retrieve the `words` and the position of the matches. `FALSE` to only retrieve the `words`. Default `TRUE`.
     #'
     #' @return list with the `words` corresponding to `keys` found in the `sentence`. Hint: Use `do.call(rbind, ...)` to transform the list to a matrix.
     #' @export
