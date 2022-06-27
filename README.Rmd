@@ -16,6 +16,7 @@ knitr::opts_chunk$set(
 # rflashtext
 
 <!-- badges: start -->
+[![R-CMD-check](https://github.com/AbrJA/rflashtext/workflows/R-CMD-check/badge.svg)](https://github.com/AbrJA/rflashtext/actions)
 <!-- badges: end -->
 
 _rflashtext_ **can be used to find and replace words in a given text with only one pass over the document.** 
