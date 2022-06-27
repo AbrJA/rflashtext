@@ -46,7 +46,7 @@ library(rflashtext)
 
 processor <- keyword_processor$new()
 processor$add_keys_words(keys = c("NY", "LA"), words = c("New York", "Los Angeles"))
-correct <- processor$add_keys_words(keys = "NY", words = "New York City")
+correct <- processor$add_keys_words(keys = c("NY", "CA"), words = c("New York City", "California"))
 # To check if there are duplicate keys
 correct
 
@@ -158,7 +158,7 @@ processor
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-list with the values of the \code{attrs}. Usefull to save \code{dict} and reuse it or to check the \code{dict_size}.
+list with the values of the \code{attrs}. Useful to save \code{dict} and reuse it or to check the \code{dict_size}.
 }
 \subsection{Examples}{
 \if{html}{\out{<div class="r example copy">}}
@@ -200,7 +200,7 @@ invisible. Assign to a variable to inspect the output. Logical vector. \code{FAL
 
 processor <- keyword_processor$new()
 processor$add_keys_words(keys = c("NY", "LA"), words = c("New York", "Los Angeles"))
-correct <- processor$add_keys_words(keys = "NY", words = "New York City")
+correct <- processor$add_keys_words(keys = c("NY", "CA"), words = c("New York City", "California"))
 # To check if there are duplicate keys
 correct
 }
@@ -284,7 +284,7 @@ processor$get_words(keys = c("NY", "LA", "TX"))
 \describe{
 \item{\code{sentence}}{character. Text to find the \code{keys} previously defined. Not vectorized.}
 
-\item{\code{span_info}}{logical. \code{TRUE} to retrieve the \code{words} and the position of the matches. \code{FALSE} to only retrive the \code{words}. Default \code{TRUE}.}
+\item{\code{span_info}}{logical. \code{TRUE} to retrieve the \code{words} and the position of the matches. \code{FALSE} to only retrieve the \code{words}. Default \code{TRUE}.}
 }
 \if{html}{\out{</div>}}
 }
