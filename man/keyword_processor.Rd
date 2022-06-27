@@ -2,47 +2,210 @@
 % Please edit documentation in R/keyword_processor.R
 \name{keyword_processor}
 \alias{keyword_processor}
-\title{Aho-Corasick algorithm to find and replace words}
+\title{FlashText algorithm to find and replace words}
 \description{
-Aho-Corasick algorithm to find and replace words
-
-Aho-Corasick algorithm to find and replace words
+Based on the python library \href{https://github.com/vi3k6i5/flashtext}{flashtext}. To see more details about the algorithm visit: \href{https://arxiv.org/abs/1711.00046}{FlashText}
 }
 \examples{
 library(rflashtext)
 
 processor <- keyword_processor$new()
-processor$set_key_words(keys = c("NY", "LA"), words = c("New York", "Los Angeles"), info = FALSE)
+processor$add_keys_words(keys = c("NY", "LA"), words = c("New York", "Los Angeles"))
 
 processor$contain_keys(keys = "NY")
 processor$get_words(keys = "LA")
 
-processor$find_key_words(sentence = "I live in LA and I like NY")
-processor$replace_key_words(sentence = "I live in LA and I like NY")
+processor$find_keys(sentence = "I live in LA but I like NY")
+processor$replace_keys(sentence = "I live in LA but I like NY")
+
+## ------------------------------------------------
+## Method `keyword_processor$new`
+## ------------------------------------------------
+
+library(rflashtext)
+
+processor <- keyword_processor$new(ignore_case = FALSE, word_chars = letters)
+processor
+
+## ------------------------------------------------
+## Method `keyword_processor$show_attrs`
+## ------------------------------------------------
+
+library(rflashtext)
+
+processor <- keyword_processor$new()
+processor$add_keys_words(keys = c("NY", "LA"), words = c("New York", "Los Angeles"))
+processor$show_attrs(attrs = "dict_size")
+processor$show_attrs(attrs = "dict")
+
+## ------------------------------------------------
+## Method `keyword_processor$add_keys_words`
+## ------------------------------------------------
+
+library(rflashtext)
+
+processor <- keyword_processor$new()
+processor$add_keys_words(keys = c("NY", "LA"), words = c("New York", "Los Angeles"))
+correct <- processor$add_keys_words(keys = "NY", words = "New York City")
+# To check if there are duplicate keys
+correct
+
+## ------------------------------------------------
+## Method `keyword_processor$contain_keys`
+## ------------------------------------------------
+
+library(rflashtext)
+
+processor <- keyword_processor$new()
+processor$add_keys_words(keys = c("NY", "LA"), words = c("New York", "Los Angeles"))
+processor$contain_keys(keys = c("NY", "LA", "TX"))
+
+## ------------------------------------------------
+## Method `keyword_processor$get_words`
+## ------------------------------------------------
+
+library(rflashtext)
+
+processor <- keyword_processor$new()
+processor$add_keys_words(keys = c("NY", "LA"), words = c("New York", "Los Angeles"))
+processor$get_words(keys = c("NY", "LA", "TX"))
+
+## ------------------------------------------------
+## Method `keyword_processor$find_keys`
+## ------------------------------------------------
+
+library(rflashtext)
+
+processor <- keyword_processor$new()
+processor$add_keys_words(keys = c("NY", "LA"), words = c("New York", "Los Angeles"))
+words_found <- processor$find_keys(sentence = "I live in LA but I like NY")
+do.call(rbind, words_found)
+
+## ------------------------------------------------
+## Method `keyword_processor$replace_keys`
+## ------------------------------------------------
+
+library(rflashtext)
+
+processor <- keyword_processor$new()
+processor$add_keys_words(keys = c("NY", "LA"), words = c("New York", "Los Angeles"))
+new_sentence <- processor$replace_keys(sentence = "I live in LA but I like NY")
+new_sentence
 }
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-init}{\code{keyword_processor$init()}}
+\item \href{#method-new}{\code{keyword_processor$new()}}
+\item \href{#method-show_attrs}{\code{keyword_processor$show_attrs()}}
+\item \href{#method-add_keys_words}{\code{keyword_processor$add_keys_words()}}
 \item \href{#method-contain_keys}{\code{keyword_processor$contain_keys()}}
 \item \href{#method-get_words}{\code{keyword_processor$get_words()}}
-\item \href{#method-set_key_words}{\code{keyword_processor$set_key_words()}}
-\item \href{#method-find_key_words}{\code{keyword_processor$find_key_words()}}
-\item \href{#method-replace_key_words}{\code{keyword_processor$replace_key_words()}}
-\item \href{#method-show_attrs}{\code{keyword_processor$show_attrs()}}
+\item \href{#method-find_keys}{\code{keyword_processor$find_keys()}}
+\item \href{#method-replace_keys}{\code{keyword_processor$replace_keys()}}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-init"></a>}}
-\if{latex}{\out{\hypertarget{method-init}{}}}
-\subsection{Method \code{init()}}{
+\if{html}{\out{<a id="method-new"></a>}}
+\if{latex}{\out{\hypertarget{method-new}{}}}
+\subsection{Method \code{new()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{keyword_processor$init(
-  id = "_key_",
-  lower = TRUE,
-  chars = c(letters, LETTERS, 0:9, "_"),
-  dict = list()
+\if{html}{\out{<div class="r">}}\preformatted{keyword_processor$new(
+  ignore_case = TRUE,
+  word_chars = c(letters, LETTERS, 0:9, "_"),
+  dict = NULL
 )}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{ignore_case}}{logical. If \code{FALSE} the search is case sensitive. Default \code{TRUE}.}
+
+\item{\code{word_chars}}{character vector. Used to validate if a word continues. Default \code{c(letters, LETTERS, 0:9, "_")} equivalent to \verb{[a-zA-Z0-9_]}.}
+
+\item{\code{dict}}{list. Internally built character by character and needed for the search. Recommended to let the default value \code{NULL}.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+invisible. Assign to a variable to inspect the output. Logical. \code{TRUE} if all went good.
+}
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{library(rflashtext)
+
+processor <- keyword_processor$new(ignore_case = FALSE, word_chars = letters)
+processor
+}
+\if{html}{\out{</div>}}
+
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-show_attrs"></a>}}
+\if{latex}{\out{\hypertarget{method-show_attrs}{}}}
+\subsection{Method \code{show_attrs()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{keyword_processor$show_attrs(attrs = "all")}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{attrs}}{character vector. Options are subsets of \code{c("all", "id", "word_chars", "dict", "ignore_case", "dict_size")}. Default \code{"all"}.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+list with the values of the \code{attrs}. Usefull to save \code{dict} and reuse it or to check the \code{dict_size}.
+}
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{library(rflashtext)
+
+processor <- keyword_processor$new()
+processor$add_keys_words(keys = c("NY", "LA"), words = c("New York", "Los Angeles"))
+processor$show_attrs(attrs = "dict_size")
+processor$show_attrs(attrs = "dict")
+}
+\if{html}{\out{</div>}}
+
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-add_keys_words"></a>}}
+\if{latex}{\out{\hypertarget{method-add_keys_words}{}}}
+\subsection{Method \code{add_keys_words()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{keyword_processor$add_keys_words(keys, words = NULL)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{keys}}{character vector. Strings to identify (find/replace) in the text.}
+
+\item{\code{words}}{character vector. Strings to be returned (find) or replaced (replace) when found the respective \code{keys}. Should have the same length as \code{keys}. If not provided, \code{words = keys}.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+invisible. Assign to a variable to inspect the output. Logical vector. \code{FALSE} if \code{keys} are duplicated, the respective \code{words} will be updated.
+}
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{library(rflashtext)
+
+processor <- keyword_processor$new()
+processor$add_keys_words(keys = c("NY", "LA"), words = c("New York", "Los Angeles"))
+correct <- processor$add_keys_words(keys = "NY", words = "New York City")
+# To check if there are duplicate keys
+correct
+}
+\if{html}{\out{</div>}}
+
 }
 
 }
@@ -54,6 +217,28 @@ processor$replace_key_words(sentence = "I live in LA and I like NY")
 \if{html}{\out{<div class="r">}}\preformatted{keyword_processor$contain_keys(keys)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{keys}}{character vector. Strings to check if already are on the search dictionary.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+logical vector. \code{TRUE} if the \code{keys} are on the search dictionary.
+}
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{library(rflashtext)
+
+processor <- keyword_processor$new()
+processor$add_keys_words(keys = c("NY", "LA"), words = c("New York", "Los Angeles"))
+processor$contain_keys(keys = c("NY", "LA", "TX"))
+}
+\if{html}{\out{</div>}}
+
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-get_words"></a>}}
@@ -63,40 +248,92 @@ processor$replace_key_words(sentence = "I live in LA and I like NY")
 \if{html}{\out{<div class="r">}}\preformatted{keyword_processor$get_words(keys)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{keys}}{character vector. Strings to get back the respective \code{words}.}
 }
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-set_key_words"></a>}}
-\if{latex}{\out{\hypertarget{method-set_key_words}{}}}
-\subsection{Method \code{set_key_words()}}{
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{keyword_processor$set_key_words(keys, words = NULL, info = FALSE)}\if{html}{\out{</div>}}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+character vector. Respective \code{words}. If \code{keys} not found returns \code{NA_character_}.
+}
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{library(rflashtext)
+
+processor <- keyword_processor$new()
+processor$add_keys_words(keys = c("NY", "LA"), words = c("New York", "Los Angeles"))
+processor$get_words(keys = c("NY", "LA", "TX"))
+}
+\if{html}{\out{</div>}}
+
 }
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-find_key_words"></a>}}
-\if{latex}{\out{\hypertarget{method-find_key_words}{}}}
-\subsection{Method \code{find_key_words()}}{
+\if{html}{\out{<a id="method-find_keys"></a>}}
+\if{latex}{\out{\hypertarget{method-find_keys}{}}}
+\subsection{Method \code{find_keys()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{keyword_processor$find_key_words(sentence, info = TRUE)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{keyword_processor$find_keys(sentence, span_info = TRUE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{sentence}}{character. Text to find the \code{keys} previously defined. Not vectorized.}
+
+\item{\code{span_info}}{logical. \code{TRUE} to retrieve the \code{words} and the position of the matches. \code{FALSE} to only retrive the \code{words}. Default \code{TRUE}.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+list with the \code{words} corresponding to \code{keys} found in the \code{sentence}. Hint: Use \code{do.call(rbind, ...)} to transform the list to a matrix.
+}
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{library(rflashtext)
+
+processor <- keyword_processor$new()
+processor$add_keys_words(keys = c("NY", "LA"), words = c("New York", "Los Angeles"))
+words_found <- processor$find_keys(sentence = "I live in LA but I like NY")
+do.call(rbind, words_found)
+}
+\if{html}{\out{</div>}}
+
 }
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-replace_key_words"></a>}}
-\if{latex}{\out{\hypertarget{method-replace_key_words}{}}}
-\subsection{Method \code{replace_key_words()}}{
+\if{html}{\out{<a id="method-replace_keys"></a>}}
+\if{latex}{\out{\hypertarget{method-replace_keys}{}}}
+\subsection{Method \code{replace_keys()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{keyword_processor$replace_key_words(sentence)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{keyword_processor$replace_keys(sentence)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{sentence}}{character. Text to replace the \code{keys} found by the corresponding \code{words}. Not vectorized.}
 }
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-show_attrs"></a>}}
-\if{latex}{\out{\hypertarget{method-show_attrs}{}}}
-\subsection{Method \code{show_attrs()}}{
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{keyword_processor$show_attrs()}\if{html}{\out{</div>}}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+character. Text with the \code{keys} replaced by the respective \code{words}.
+}
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{library(rflashtext)
+
+processor <- keyword_processor$new()
+processor$add_keys_words(keys = c("NY", "LA"), words = c("New York", "Los Angeles"))
+new_sentence <- processor$replace_keys(sentence = "I live in LA but I like NY")
+new_sentence
+}
+\if{html}{\out{</div>}}
+
 }
 
 }
