@@ -54,8 +54,11 @@ keyword_processor <- R6::R6Class(
     show_attrs = function(attrs = "all") {
       if("all" %in% attrs) {
         return(private$attrs)
+      }
+      attrs <- attrs[attrs %in% names(private$attrs)]
+      if (length(attrs) == 1) {
+        return(private$attrs[[attrs]])
       } else {
-        match.arg(attrs, names(private$attrs), several.ok = TRUE)
         return(private$attrs[attrs])
       }
     },

@@ -4,7 +4,8 @@ test_that("processor works", {
   expect_error(keyword_processor$new(ignore_case = TRUE, dict = c("a", "b")))
   expect_warning(keyword_processor$new(ignore_case = TRUE, dict = list(NY = "New York")))
   # Show
-  expect_equal(processor$show_attrs(attrs = "dict_size"), list(dict_size = 0))
+  expect_equal(processor$show_attrs(attrs = "dict_size"), 0)
+  expect_equal(processor$show_attrs(attrs = c("dict_size", "size")), 0)
   # Add
   expect_silent(processor$add_keys_words(keys = c("NY", "LA"), words = c("New York", "Los Angeles")))
   expect_warning(processor$add_keys_words(keys = "NY", words = "New York City"))
