@@ -25,7 +25,7 @@ It's a pure R implementation of the [FlashText algorithm](https://arxiv.org/abs/
 
 ## Installation
 
-You can install the released version of rflashtext from [CRAN](https://CRAN.R-project.org) with:
+You can install the released version of rflashtext from [CRAN](https://cran.r-project.org/web/packages/rflashtext/index.html) with:
 
 ``` r
 install.packages("rflashtext")
@@ -70,3 +70,5 @@ do.call(rbind, words_found)
 ```{r}
 processor$replace_keys(sentence = "I live in LA and I like NY")
 ```
+
+To see more details about the performance of the algorithm, click [here](https://github.com/AbrJA/rflashtext_benchmark.git).

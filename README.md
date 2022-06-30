@@ -18,7 +18,8 @@ python library [flashtext](https://github.com/vi3k6i5/flashtext).
 ## Installation
 
 You can install the released version of rflashtext from
-[CRAN](https://CRAN.R-project.org) with:
+[CRAN](https://cran.r-project.org/web/packages/rflashtext/index.html)
+with:
 
 ``` r
 install.packages("rflashtext")
@@ -43,7 +44,6 @@ library(rflashtext)
 
 processor <- keyword_processor$new(ignore_case = FALSE, word_chars = c(letters, LETTERS))
 processor$show_attrs(attrs = "dict_size")
-#> $dict_size
 #> [1] 0
 ```
 
@@ -112,3 +112,6 @@ do.call(rbind, words_found)
 processor$replace_keys(sentence = "I live in LA and I like NY")
 #> [1] "I live in Los Angeles and I like New York"
 ```
+
+To see more details about the performance of the algorithm, click
+[here](https://github.com/AbrJA/rflashtext_benchmark.git).
