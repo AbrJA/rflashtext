@@ -308,7 +308,7 @@ keyword_processor <- R6::R6Class(
                 }
                 idy <- idy + 1
               }
-              if(!inner_char %in% private$attrs$word_chars && !is.null(dict_cont[[private$attrs$id]])) {
+              if((idy > len || !inner_char %in% private$attrs$word_chars) && !is.null(dict_cont[[private$attrs$id]])) {
                 longest_sequence <- dict_cont[[private$attrs$id]]
                 end_pos <- idy
                 longer <- TRUE
@@ -414,7 +414,7 @@ keyword_processor <- R6::R6Class(
                 }
                 idy <- idy + 1
               }
-              if(!inner_char %in% private$attrs$word_chars && !is.null(dict_cont[[private$attrs$id]])) {
+              if((idy > len || !inner_char %in% private$attrs$word_chars) && !is.null(dict_cont[[private$attrs$id]])) {
                 longest_sequence <- dict_cont[[private$attrs$id]]
                 end_pos <- idy
                 longer <- TRUE
