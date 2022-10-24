@@ -6,6 +6,8 @@
 <!-- badges: start -->
 
 [![R-CMD-check](https://github.com/AbrJA/rflashtext/workflows/R-CMD-check/badge.svg)](https://github.com/AbrJA/rflashtext/actions)
+[![Grand-total](https://cranlogs.r-pkg.org/badges/grand-total/rflashtext)](https://cran.r-project.org/web/packages/rflashtext/index.html)
+[![Per-month](https://cranlogs.r-pkg.org/badges/rflashtext)](https://cran.r-project.org/web/packages/rflashtext/index.html)
 <!-- badges: end -->
 
 *rflashtext* **can be used to find and replace words in a given text
