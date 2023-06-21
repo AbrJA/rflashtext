@@ -280,6 +280,7 @@ processor$get_words(keys = c("NY", "LA", "TX"))
 \if{html}{\out{<a id="method-KeywordProcessor-find_keys"></a>}}
 \if{latex}{\out{\hypertarget{method-KeywordProcessor-find_keys}{}}}
 \subsection{Method \code{find_keys()}}{
+Finds \code{keys} in the sentences using the search \code{trie} dictionary.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{KeywordProcessor$find_keys(sentences, span_info = TRUE)}\if{html}{\out{</div>}}
 }
@@ -315,6 +316,7 @@ words_found
 \if{html}{\out{<a id="method-KeywordProcessor-replace_keys"></a>}}
 \if{latex}{\out{\hypertarget{method-KeywordProcessor-replace_keys}{}}}
 \subsection{Method \code{replace_keys()}}{
+Replaces \code{keys} found in the sentences by the corresponding \code{words}.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{KeywordProcessor$replace_keys(sentences)}\if{html}{\out{</div>}}
 }

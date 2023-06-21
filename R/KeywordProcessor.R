@@ -159,7 +159,7 @@ KeywordProcessor <- R6::R6Class(
       getWords(self$attrs$trie, keys, self$attrs$id)
     },
     #-----------------------------------------------------------------
-    #' @description
+    #' @description Finds `keys` in the sentences using the search `trie` dictionary.
     #' @param sentences character vector. Text to find the `keys` previously defined.
     #' @param span_info logical. `TRUE` to retrieve the `words` and the position of the matches. `FALSE` to only retrieve the `words`. Default `TRUE`.
     #' @param word_chars character. Used to validate if a word continues. Default `paste0(c(letters, LETTERS, 0:9, "_"), collapse = "")` equivalent to `[a-zA-Z0-9_]`.
@@ -181,7 +181,7 @@ KeywordProcessor <- R6::R6Class(
       findKeys(self$attrs$trie, sentences, self$attrs$word_chars, self$attrs$id, span_info)
     },
     #-----------------------------------------------------------------
-    #' @description
+    #' @description Replaces `keys` found in the sentences by the corresponding `words`.
     #' @param sentences character vector. Text to replace the `keys` found by the corresponding `words`.
     #'
     #' @return character vector. Text with the `keys` replaced by the respective `words`.
