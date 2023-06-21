@@ -3,6 +3,7 @@
 export(KeywordProcessor)
 export(build_trie)
 export(find_keys)
+export(keyword_processor)
 export(replace_keys)
 importFrom(R6,R6Class)
 importFrom(Rcpp,sourceCpp)
