@@ -1,5 +1,6 @@
 #-----------------------------------------------------------------
-#' @title find_keys
+#' @title Find keys
+#' @description Finds `keys` in the sentences using the search `trie` dictionary.
 #' @param trie pointer. Pointer to a trie structure.
 #' @param sentences character vector. Text to find the `keys` previously defined.
 #' @param word_chars character. Used to validate if a word continues. Default `paste0(c(letters, LETTERS, 0:9, "_"), collapse = "")` equivalent to `[a-zA-Z0-9_]`.

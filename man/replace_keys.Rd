@@ -2,7 +2,7 @@
 % Please edit documentation in R/replace_keys.R
 \name{replace_keys}
 \alias{replace_keys}
-\title{replace_keys}
+\title{Replace keys}
 \usage{
 replace_keys(
   trie,
@@ -24,7 +24,7 @@ replace_keys(
 character vector. Text with the \code{keys} replaced by the respective \code{words}.
 }
 \description{
-replace_keys
+Replaces \code{keys} found in the sentences by the corresponding \code{words}.
 }
 \examples{
 library(rflashtext)

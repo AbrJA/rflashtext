@@ -1,5 +1,6 @@
 #-----------------------------------------------------------------
-#' @title replace_keys
+#' @title Replace keys
+#' @description Replaces `keys` found in the sentences by the corresponding `words`.
 #' @param trie pointer. Pointer to a trie structure.
 #' @param sentences character vector. Text to replace the `keys` found by the corresponding `words`.
 #' @param word_chars character. Used to validate if a word continues. Default `paste0(c(letters, LETTERS, 0:9, "_"), collapse = "")` equivalent to `[a-zA-Z0-9_]`.

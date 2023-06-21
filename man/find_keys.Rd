@@ -2,7 +2,7 @@
 % Please edit documentation in R/find_keys.R
 \name{find_keys}
 \alias{find_keys}
-\title{find_keys}
+\title{Find keys}
 \usage{
 find_keys(
   trie,
@@ -27,7 +27,7 @@ find_keys(
 list with the \code{words} corresponding to \code{keys} found in the \code{sentence}. Hint: Use \code{data.table::rbindlist(...)} to transform the list to a data frame.
 }
 \description{
-find_keys
+Finds \code{keys} in the sentences using the search \code{trie} dictionary.
 }
 \examples{
 library(rflashtext)

@@ -2,7 +2,7 @@
 % Please edit documentation in R/build_trie.R
 \name{build_trie}
 \alias{build_trie}
-\title{build_trie}
+\title{Build trie}
 \usage{
 build_trie(keys, words = NULL, id = "_word_")
 }
@@ -14,10 +14,10 @@ build_trie(keys, words = NULL, id = "_word_")
 \item{id}{character.}
 }
 \value{
-pointer. Pointer to the trie structure.
+pointer. Pointer to the \code{trie} structure.
 }
 \description{
-build_trie
+Builds the \code{trie} dictionary.
 }
 \examples{
 library(rflashtext)

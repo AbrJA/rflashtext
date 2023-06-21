@@ -1,10 +1,11 @@
 #-----------------------------------------------------------------
-#' @title build_trie
+#' @title Build trie
+#' @description Builds the `trie` dictionary.
 #' @param keys character vector. Strings to identify (find/replace) in the text.
 #' @param words character vector. Strings to be returned (find) or replaced (replace) when found the respective `keys`. Should have the same length as `keys`. If not provided, `words = keys`.
 #' @param id character.
 #'
-#' @return pointer. Pointer to the trie structure.
+#' @return pointer. Pointer to the `trie` structure.
 #' @export
 #'
 #' @examples

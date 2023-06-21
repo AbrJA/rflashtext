@@ -27,7 +27,7 @@ SEXP loadTrie(std::string trieStr) {
 }
 
 // [[Rcpp::export]]
-SEXP buildTrie(Rcpp::CharacterVector keys, Rcpp::CharacterVector values, std::string id) {
+SEXP buildTrie(Rcpp::CharacterVector &keys, Rcpp::CharacterVector &values, std::string id) {
   json trie;
   std::string path, key;
   Rcpp::LogicalVector keys_na = Rcpp::is_na(keys);
@@ -44,7 +44,7 @@ SEXP buildTrie(Rcpp::CharacterVector keys, Rcpp::CharacterVector values, std::st
 }
 
 // [[Rcpp::export]]
-int addKeysWords(SEXP ptr, Rcpp::CharacterVector keys, Rcpp::CharacterVector values, std::string id) {
+int addKeysWords(SEXP ptr, Rcpp::CharacterVector &keys, Rcpp::CharacterVector &values, std::string id) {
   Rcpp::XPtr<json> trie(ptr);
   int counter = 0;
   std::string path, key;
@@ -67,7 +67,7 @@ std::string dumpTrie(SEXP ptr) {
 }
 
 // [[Rcpp::export]]
-Rcpp::LogicalVector containKeys(SEXP ptr, Rcpp::CharacterVector keys, std::string id) {
+Rcpp::LogicalVector containKeys(SEXP ptr, Rcpp::CharacterVector &keys, std::string id) {
   Rcpp::XPtr<json> trie(ptr);
   Rcpp::LogicalVector is_in(keys.size());
   std::string path;
@@ -79,7 +79,7 @@ Rcpp::LogicalVector containKeys(SEXP ptr, Rcpp::CharacterVector keys, std::strin
 }
 
 // [[Rcpp::export]]
-Rcpp::StringVector getWords(SEXP ptr, Rcpp::CharacterVector keys, std::string id) {
+Rcpp::StringVector getWords(SEXP ptr, Rcpp::CharacterVector &keys, std::string id) {
   Rcpp::XPtr<json> trie(ptr);
   Rcpp::CharacterVector words(keys.size());
   std::string path;
@@ -290,23 +290,23 @@ std::string replaceKeysSingle(SEXP ptr, std::string sentence, std::string word_c
 }
 
 // [[Rcpp::export]]
-Rcpp::List findKeys(SEXP ptr, Rcpp::CharacterVector sentences, std::string word_chars, std::string id, bool span_info) {
-  Rcpp::List keys_found;
+Rcpp::List findKeys(SEXP ptr, Rcpp::CharacterVector &sentences, std::string word_chars, std::string id, bool span_info) {
+  Rcpp::List keys_found(sentences.size());;
   for(int i = 0; i < sentences.size(); i++) {
-    keys_found.push_back(findKeysSingle(ptr, Rcpp::as<std::string>(sentences[i]), word_chars, id, span_info));
+    keys_found[i] = findKeysSingle(ptr, Rcpp::as<std::string>(sentences[i]), word_chars, id, span_info);
   }
   return keys_found;
 }
 
 // [[Rcpp::export]]
-Rcpp::CharacterVector replaceKeys(SEXP ptr, Rcpp::CharacterVector sentences, std::string word_chars, std::string id) {
-  Rcpp::CharacterVector new_sentences;
+Rcpp::CharacterVector replaceKeys(SEXP ptr, Rcpp::CharacterVector &sentences, std::string word_chars, std::string id) {
+  Rcpp::CharacterVector new_sentences(sentences.size());
   Rcpp::LogicalVector sentences_na = Rcpp::is_na(sentences);
   for(int i = 0; i < sentences.size(); i++) {
     if (sentences_na[i]) {
-      new_sentences.push_back(NA_STRING);
+      new_sentences[i] = NA_STRING;
     } else {
-      new_sentences.push_back(replaceKeysSingle(ptr, Rcpp::as<std::string>(sentences[i]), word_chars, id));
+      new_sentences[i] = replaceKeysSingle(ptr, Rcpp::as<std::string>(sentences[i]), word_chars, id);
     }
   }
   return new_sentences;
