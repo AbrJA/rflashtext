@@ -82,14 +82,14 @@ Rcpp::LogicalVector containKeys(SEXP ptr, Rcpp::CharacterVector &keys, std::stri
 Rcpp::StringVector getWords(SEXP ptr, Rcpp::CharacterVector &keys, std::string id) {
   Rcpp::XPtr<json> trie(ptr);
   Rcpp::CharacterVector words(keys.size());
-  std::string path;
+  json_pointer path;
   for(int i = 0; i < keys.size(); i++) {
-    path = separatePath(Rcpp::as<std::string>(keys[i])) + "/" + id;
-    if (!trie->contains(json_pointer(path))) {
+    path = json_pointer(separatePath(Rcpp::as<std::string>(keys[i])) + "/" + id);
+    if (!trie->contains(path)) {
       words[i] = NA_STRING;
       continue;
     }
-    words[i] = trie->at(json_pointer(path)).get<std::string>();
+    words[i] = trie->at(path).get<std::string>();
   }
   return words;
 }
@@ -99,8 +99,9 @@ Rcpp::List findKeysSingle(SEXP ptr, std::string sentence, std::string word_chars
   int start_pos = 0, end_pos = 0, idx = 0, idy, len = sentence.length();
   bool reset_path = false, longer;
   std::string letter, inner_letter, sequence, longest_sequence, path, inner_path;
-  Rcpp::CharacterVector words_found;
-  Rcpp::IntegerVector start_index, end_index;
+  std::vector<std::string> words_found;
+  std::vector<int> start_index, end_index;
+  // Rcpp::List words_found;
   while (idx < len) {
     letter = sentence[idx];
     if (word_chars.find(letter) == std::string::npos) {
@@ -143,9 +144,12 @@ Rcpp::List findKeysSingle(SEXP ptr, std::string sentence, std::string word_chars
         path = "";
         if (!longest_sequence.empty()) {
           words_found.push_back(longest_sequence);
+          // words_found.push_back(longest_sequence, "word");
           if (span_info) {
-            start_index.push_back(start_pos);
+            start_index.push_back(start_pos + 1);
             end_index.push_back(idx);
+            // words_found.push_back(start_pos + 1, "start");
+            // words_found.push_back(idx, "end");
           }
         }
         reset_path = true;
@@ -172,9 +176,12 @@ Rcpp::List findKeysSingle(SEXP ptr, std::string sentence, std::string word_chars
       if (trie->contains(json_pointer(separatePath(path) + "/" + id))) {
         sequence = trie->at(json_pointer(separatePath(path) + "/" + id)).get<std::string>();
         words_found.push_back(sequence);
+        // words_found.push_back(sequence, "word");
         if (span_info) {
-          start_index.push_back(start_pos);
+          start_index.push_back(start_pos + 1);
           end_index.push_back(idx + 1);
+          // words_found.push_back(start_pos + 1, "start");
+          // words_found.push_back(idx + 1, "end");
         }
       }
     }
@@ -184,8 +191,9 @@ Rcpp::List findKeysSingle(SEXP ptr, std::string sentence, std::string word_chars
       start_pos = idx;
     }
   }
-  if (span_info) return Rcpp::List::create(_["word"] = words_found, _["start"] = 1 + start_index, _["end"] = end_index);
-  return Rcpp::List::create(_["word"] = words_found);
+  if (span_info) return Rcpp::List::create(Rcpp::Named("word") = words_found, Rcpp::Named("start") = start_index, Rcpp::Named("end") = end_index);
+  return Rcpp::List::create(Rcpp::Named("word") = words_found);
+  // return words_found;
 }
 
 std::string replaceKeysSingle(SEXP ptr, std::string sentence, std::string word_chars, std::string id) {
