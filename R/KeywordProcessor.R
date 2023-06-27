@@ -35,11 +35,11 @@ KeywordProcessor <- R6::R6Class(
       trie = NULL),
     #-----------------------------------------------------------------
     #' @description Initializes the `KeywordProcessor` object.
+    #' @param keys character vector. Strings to identify (find/replace) in the text. Must be provided if `trie` is `NULL`.
+    #' @param words character vector. Strings to be returned (find) or replaced (replace) when found the respective `keys`. Should have the same length as `keys`. If not provided, `words = keys`.
     #' @param id character. Used to name the end nodes of the `trie` dictionary.
     #' @param ignore_case logical. If `FALSE` the search is case sensitive. Default `TRUE`.
     #' @param word_chars character. Used to validate if a word continues. Default `paste0(c(letters, LETTERS, 0:9, "_"), collapse = "")` equivalent to `[a-zA-Z0-9_]`.
-    #' @param keys character vector. Strings to identify (find/replace) in the text. Must be provided if `trie` is `NULL`.
-    #' @param words character vector. Strings to be returned (find) or replaced (replace) when found the respective `keys`. Should have the same length as `keys`. If not provided, `words = keys`.
     #' @param trie character. JSON built character by character and needed for the search. It can be provided instead of `keys` and `words`.
     #'
     #' @export
@@ -49,11 +49,11 @@ KeywordProcessor <- R6::R6Class(
     #'
     #' processor <- KeywordProcessor$new(word_chars = paste0(letters, collapse = ""), keys = c("NY", "LA"))
     #' processor$attrs
-    initialize = function(id = "_word_",
+    initialize = function(keys = NULL,
+                          words = NULL,
+                          id = "_word_",
                           ignore_case = FALSE,
                           word_chars = paste0(c(letters, LETTERS, 0:9, "_"), collapse = ""),
-                          keys = NULL,
-                          words = NULL,
                           trie = NULL) {
       if (is.null(keys) + is.null(trie) != 1L) stop("Use one argument `keys` or `trie`")
       if (is.null(trie) + is.null(words) == 0L) warning("`words` won't be used when `trie` is not null")
