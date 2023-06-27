@@ -23,7 +23,7 @@ knitr::opts_chunk$set(
 
 _rflashtext_ **can be used to find and replace words in a given text with only one pass over the document.** 
 
-It's a pure R implementation of the [FlashText algorithm](https://arxiv.org/abs/1711.00046) and it's inspired on the python library [flashtext](https://github.com/vi3k6i5/flashtext).
+It's a R implementation of the [FlashText algorithm](https://arxiv.org/abs/1711.00046) and it's inspired on the python library [flashtext](https://github.com/vi3k6i5/flashtext).
 
 ## Installation
 
@@ -46,31 +46,33 @@ This is a basic example which shows you how to use the API:
 ### New processor
 
 ```{r new}
+devtools::install_github("AbrJA/rflashtext@rcpp")
+
 library(rflashtext)
 
-processor <- keyword_processor$new(ignore_case = FALSE, word_chars = c(letters, LETTERS))
-processor$show_attrs(attrs = "dict_size")
+processor <- KeywordProcessor$new(keys = c("NY", "LA"), words = c("New York", "Los Angeles"))
+processor$show_trie()
 ```
 
 ### Add keys-words to processor
 
 ```{r add}
-processor$add_keys_words(keys = c("NY", "LA"), words = c("New York", "Los Angeles"))
-processor$show_attrs(attrs = c("dict", "dict_size"))
+processor$add_keys_words(keys = c("TX", "CA"), words = c("Texas", "California"))
+processor$show_trie()
 ```
 
 ### Find keys in a sentence
 
 ```{r}
-words_found <- processor$find_keys(sentence = "I live in LA and I like NY")
+words_found <- processor$find_keys(sentences = c("I live in LA and I like NY", "Have you been in TX?"))
 words_found
-do.call(rbind, words_found)
+data.table::rbindlist(words_found)
 ```
 
 ### Replace keys in a sentence
 
 ```{r}
-processor$replace_keys(sentence = "I live in LA and I like NY")
+processor$replace_keys(sentences = c("I live in LA and I like NY", "Have you been in TX?"))
 ```
 
 To see more details about the performance of the algorithm, click [here](https://github.com/AbrJA/rflashtext_benchmark.git).
