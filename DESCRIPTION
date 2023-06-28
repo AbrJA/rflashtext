@@ -5,7 +5,7 @@ Authors@R:
     person(given = "Abraham",
            family = "Jaimes",
            role = c("aut", "cre"),
-           email = "ajaimes@occ.com.mx")
+           email = "abraham.jaimes.mx@gmail.com")
 Description: Implementation of the FlashText algorithm, by Singh (2017) <arXiv:1711.00046>. It can be used to find and replace words in a given text with only one pass over the document.
 License: MIT + file LICENSE
 Encoding: UTF-8
