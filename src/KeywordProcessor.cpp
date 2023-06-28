@@ -30,7 +30,7 @@ SEXP loadTrie(const std::string& trieStr) {
 }
 
 // [[Rcpp::export]]
-SEXP buildTrie(const Rcpp::CharacterVector& keys, const Rcpp::CharacterVector& values, const std::string& id) {
+SEXP buildTrie(const Rcpp::StringVector& keys, const Rcpp::StringVector& values, const std::string& id) {
   json trie;
   const Rcpp::LogicalVector keys_na = Rcpp::is_na(keys);
   const int size = keys.size();
@@ -50,7 +50,7 @@ SEXP buildTrie(const Rcpp::CharacterVector& keys, const Rcpp::CharacterVector& v
 }
 
 // [[Rcpp::export]]
-int addKeysWords(SEXP ptr, const Rcpp::CharacterVector& keys, const Rcpp::CharacterVector& values, const std::string& id) {
+int addKeysWords(SEXP ptr, const Rcpp::StringVector& keys, const Rcpp::StringVector& values, const std::string& id) {
   Rcpp::XPtr<json> trie(ptr);
   int counter = 0;
   const Rcpp::LogicalVector keys_na = Rcpp::is_na(keys);
@@ -77,7 +77,7 @@ std::string dumpTrie(SEXP ptr) {
 }
 
 // [[Rcpp::export]]
-Rcpp::LogicalVector containKeys(SEXP ptr, const Rcpp::CharacterVector& keys, const std::string& id) {
+Rcpp::LogicalVector containKeys(SEXP ptr, const Rcpp::StringVector& keys, const std::string& id) {
   const Rcpp::XPtr<json> trie(ptr);
   const int size = keys.size();
   Rcpp::LogicalVector is_in(size);
@@ -92,7 +92,7 @@ Rcpp::LogicalVector containKeys(SEXP ptr, const Rcpp::CharacterVector& keys, con
 }
 
 // [[Rcpp::export]]
-Rcpp::StringVector getWords(SEXP ptr, const Rcpp::CharacterVector& keys, const std::string& id) {
+Rcpp::StringVector getWords(SEXP ptr, const Rcpp::StringVector& keys, const std::string& id) {
   const Rcpp::XPtr<json> trie(ptr);
   const int size = keys.size();
   Rcpp::StringVector words(size);
@@ -113,7 +113,7 @@ Rcpp::StringVector getWords(SEXP ptr, const Rcpp::CharacterVector& keys, const s
 }
 
 // [[Rcpp::export]]
-Rcpp::List findKeys(SEXP ptr, const Rcpp::CharacterVector& sentences, const std::string& word_chars, const std::string& id, bool span_info) {
+Rcpp::List findKeys(SEXP ptr, const Rcpp::StringVector& sentences, const std::string& word_chars, const std::string& id, bool span_info) {
   const Rcpp::XPtr<json> trie(ptr);
   const int lens = sentences.length();
   Rcpp::List keys_found(lens);
@@ -204,7 +204,7 @@ Rcpp::List findKeys(SEXP ptr, const Rcpp::CharacterVector& sentences, const std:
 }
 
 // [[Rcpp::export]]
-Rcpp::StringVector replaceKeys(SEXP ptr, const Rcpp::CharacterVector& sentences, const std::string& word_chars, const std::string& id) {
+Rcpp::StringVector replaceKeys(SEXP ptr, const Rcpp::StringVector& sentences, const std::string& word_chars, const std::string& id) {
   const Rcpp::XPtr<json> trie(ptr);
   const int lens = sentences.length();
   const Rcpp::LogicalVector sentences_na = Rcpp::is_na(sentences);

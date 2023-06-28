@@ -22,27 +22,27 @@ BEGIN_RCPP
 END_RCPP
 }
 // buildTrie
-SEXP buildTrie(const Rcpp::CharacterVector& keys, const Rcpp::CharacterVector& values, const std::string& id);
+SEXP buildTrie(const Rcpp::StringVector& keys, const Rcpp::StringVector& values, const std::string& id);
 RcppExport SEXP _rflashtext_buildTrie(SEXP keysSEXP, SEXP valuesSEXP, SEXP idSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const Rcpp::CharacterVector& >::type keys(keysSEXP);
-    Rcpp::traits::input_parameter< const Rcpp::CharacterVector& >::type values(valuesSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::StringVector& >::type keys(keysSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::StringVector& >::type values(valuesSEXP);
     Rcpp::traits::input_parameter< const std::string& >::type id(idSEXP);
     rcpp_result_gen = Rcpp::wrap(buildTrie(keys, values, id));
     return rcpp_result_gen;
 END_RCPP
 }
 // addKeysWords
-int addKeysWords(SEXP ptr, const Rcpp::CharacterVector& keys, const Rcpp::CharacterVector& values, const std::string& id);
+int addKeysWords(SEXP ptr, const Rcpp::StringVector& keys, const Rcpp::StringVector& values, const std::string& id);
 RcppExport SEXP _rflashtext_addKeysWords(SEXP ptrSEXP, SEXP keysSEXP, SEXP valuesSEXP, SEXP idSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< SEXP >::type ptr(ptrSEXP);
-    Rcpp::traits::input_parameter< const Rcpp::CharacterVector& >::type keys(keysSEXP);
-    Rcpp::traits::input_parameter< const Rcpp::CharacterVector& >::type values(valuesSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::StringVector& >::type keys(keysSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::StringVector& >::type values(valuesSEXP);
     Rcpp::traits::input_parameter< const std::string& >::type id(idSEXP);
     rcpp_result_gen = Rcpp::wrap(addKeysWords(ptr, keys, values, id));
     return rcpp_result_gen;
@@ -60,39 +60,39 @@ BEGIN_RCPP
 END_RCPP
 }
 // containKeys
-Rcpp::LogicalVector containKeys(SEXP ptr, const Rcpp::CharacterVector& keys, const std::string& id);
+Rcpp::LogicalVector containKeys(SEXP ptr, const Rcpp::StringVector& keys, const std::string& id);
 RcppExport SEXP _rflashtext_containKeys(SEXP ptrSEXP, SEXP keysSEXP, SEXP idSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< SEXP >::type ptr(ptrSEXP);
-    Rcpp::traits::input_parameter< const Rcpp::CharacterVector& >::type keys(keysSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::StringVector& >::type keys(keysSEXP);
     Rcpp::traits::input_parameter< const std::string& >::type id(idSEXP);
     rcpp_result_gen = Rcpp::wrap(containKeys(ptr, keys, id));
     return rcpp_result_gen;
 END_RCPP
 }
 // getWords
-Rcpp::StringVector getWords(SEXP ptr, const Rcpp::CharacterVector& keys, const std::string& id);
+Rcpp::StringVector getWords(SEXP ptr, const Rcpp::StringVector& keys, const std::string& id);
 RcppExport SEXP _rflashtext_getWords(SEXP ptrSEXP, SEXP keysSEXP, SEXP idSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< SEXP >::type ptr(ptrSEXP);
-    Rcpp::traits::input_parameter< const Rcpp::CharacterVector& >::type keys(keysSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::StringVector& >::type keys(keysSEXP);
     Rcpp::traits::input_parameter< const std::string& >::type id(idSEXP);
     rcpp_result_gen = Rcpp::wrap(getWords(ptr, keys, id));
     return rcpp_result_gen;
 END_RCPP
 }
 // findKeys
-Rcpp::List findKeys(SEXP ptr, const Rcpp::CharacterVector& sentences, const std::string& word_chars, const std::string& id, bool span_info);
+Rcpp::List findKeys(SEXP ptr, const Rcpp::StringVector& sentences, const std::string& word_chars, const std::string& id, bool span_info);
 RcppExport SEXP _rflashtext_findKeys(SEXP ptrSEXP, SEXP sentencesSEXP, SEXP word_charsSEXP, SEXP idSEXP, SEXP span_infoSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< SEXP >::type ptr(ptrSEXP);
-    Rcpp::traits::input_parameter< const Rcpp::CharacterVector& >::type sentences(sentencesSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::StringVector& >::type sentences(sentencesSEXP);
     Rcpp::traits::input_parameter< const std::string& >::type word_chars(word_charsSEXP);
     Rcpp::traits::input_parameter< const std::string& >::type id(idSEXP);
     Rcpp::traits::input_parameter< bool >::type span_info(span_infoSEXP);
@@ -101,13 +101,13 @@ BEGIN_RCPP
 END_RCPP
 }
 // replaceKeys
-Rcpp::StringVector replaceKeys(SEXP ptr, const Rcpp::CharacterVector& sentences, const std::string& word_chars, const std::string& id);
+Rcpp::StringVector replaceKeys(SEXP ptr, const Rcpp::StringVector& sentences, const std::string& word_chars, const std::string& id);
 RcppExport SEXP _rflashtext_replaceKeys(SEXP ptrSEXP, SEXP sentencesSEXP, SEXP word_charsSEXP, SEXP idSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< SEXP >::type ptr(ptrSEXP);
-    Rcpp::traits::input_parameter< const Rcpp::CharacterVector& >::type sentences(sentencesSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::StringVector& >::type sentences(sentencesSEXP);
     Rcpp::traits::input_parameter< const std::string& >::type word_chars(word_charsSEXP);
     Rcpp::traits::input_parameter< const std::string& >::type id(idSEXP);
     rcpp_result_gen = Rcpp::wrap(replaceKeys(ptr, sentences, word_chars, id));
