@@ -36,6 +36,7 @@ keyword_processor <- R6::R6Class(
       stopifnot(is.logical(ignore_case) && length(ignore_case) != 0)
       stopifnot(is.character(word_chars) && !identical(word_chars, "") && !identical(word_chars, NA_character_) && length(word_chars) != 0)
       stopifnot(is.null(dict) || is.list(dict))
+      message("Use `KeywordProcessor` instead for better performance")
       initiated <- private$set_attr(id = "_word_", ignore_case = ignore_case, word_chars = word_chars, dict = dict)
       invisible(initiated)
     },

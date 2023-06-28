@@ -1,6 +1,6 @@
 test_that("old_processor works", {
   old_processor <- keyword_processor$new()
-  expect_silent(keyword_processor$new())
+  expect_message(keyword_processor$new())
   # New
   expect_error(keyword_processor$new(ignore_case = TRUE, dict = c("a", "b")))
   expect_warning(keyword_processor$new(ignore_case = TRUE, dict = list(NY = "New York")))
