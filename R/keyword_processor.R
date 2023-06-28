@@ -92,6 +92,9 @@ keyword_processor <- R6::R6Class(
       for (k in 1:len) {
         added[k] <- private$add_key_word(key = keys[k], word = words[k])
       }
+      if (any(!added)) {
+        warning("There are duplicate keys. To a better check assign the output to a variable.")
+      }
       invisible(added)
     },
     #' @param keys character vector. Strings to check if already are on the search dictionary.
@@ -227,9 +230,6 @@ keyword_processor <- R6::R6Class(
           private$attrs$dict[[key[1:counter]]] <- list()
         }
         counter <- counter + 1
-      }
-      if (!status) {
-        warning("There are duplicate keys. To a better check assign the output to a variable.")
       }
       return(status)
     },
