@@ -27,7 +27,7 @@ processor <- KeywordProcessor$new(keys = c("NY", "LA"), words = c("New York", "L
 processor$attrs
 library(rflashtext)
 
-processor <- KeywordProcessor$new(word_chars = paste0(letters, collapse = ""), keys = c("NY", "LA"))
+processor <- KeywordProcessor$new(chars = paste0(letters, collapse = ""), keys = c("NY", "LA"))
 processor$attrs
 
 ## ------------------------------------------------
@@ -113,29 +113,29 @@ new_sentences
 Initializes the \code{KeywordProcessor} object.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{KeywordProcessor$new(
-  id = "_word_",
-  ignore_case = FALSE,
-  word_chars = paste0(c(letters, LETTERS, 0:9, "_"), collapse = ""),
   keys = NULL,
   words = NULL,
-  trie = NULL
+  trie = NULL,
+  id = "_word_",
+  chars = paste0(c(letters, LETTERS, 0:9, "_"), collapse = ""),
+  ignore_case = FALSE
 )}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{id}}{character. Used to name the end nodes of the \code{trie} dictionary.}
-
-\item{\code{ignore_case}}{logical. If \code{FALSE} the search is case sensitive. Default \code{TRUE}.}
-
-\item{\code{word_chars}}{character. Used to validate if a word continues. Default \code{paste0(c(letters, LETTERS, 0:9, "_"), collapse = "")} equivalent to \verb{[a-zA-Z0-9_]}.}
-
 \item{\code{keys}}{character vector. Strings to identify (find/replace) in the text. Must be provided if \code{trie} is \code{NULL}.}
 
 \item{\code{words}}{character vector. Strings to be returned (find) or replaced (replace) when found the respective \code{keys}. Should have the same length as \code{keys}. If not provided, \code{words = keys}.}
 
 \item{\code{trie}}{character. JSON built character by character and needed for the search. It can be provided instead of \code{keys} and \code{words}.}
+
+\item{\code{id}}{character. Used to name the end nodes of the \code{trie} dictionary.}
+
+\item{\code{chars}}{character. Used to validate if a word continues. Default \code{paste0(c(letters, LETTERS, 0:9, "_"), collapse = "")} equivalent to \verb{[a-zA-Z0-9_]}.}
+
+\item{\code{ignore_case}}{logical. If \code{FALSE} the search is case sensitive. Default \code{TRUE}.}
 }
 \if{html}{\out{</div>}}
 }
@@ -151,7 +151,7 @@ processor$attrs
 \if{html}{\out{<div class="r example copy">}}
 \preformatted{library(rflashtext)
 
-processor <- KeywordProcessor$new(word_chars = paste0(letters, collapse = ""), keys = c("NY", "LA"))
+processor <- KeywordProcessor$new(chars = paste0(letters, collapse = ""), keys = c("NY", "LA"))
 processor$attrs
 }
 \if{html}{\out{</div>}}
@@ -291,8 +291,6 @@ Finds \code{keys} in the sentences using the search \code{trie} dictionary.
 \item{\code{sentences}}{character vector. Text to find the \code{keys} previously defined.}
 
 \item{\code{span_info}}{logical. \code{TRUE} to retrieve the \code{words} and the position of the matches. \code{FALSE} to only retrieve the \code{words}. Default \code{TRUE}.}
-
-\item{\code{word_chars}}{character. Used to validate if a word continues. Default \code{paste0(c(letters, LETTERS, 0:9, "_"), collapse = "")} equivalent to \verb{[a-zA-Z0-9_]}.}
 }
 \if{html}{\out{</div>}}
 }
