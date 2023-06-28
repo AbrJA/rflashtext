@@ -13,7 +13,7 @@ std::string separatePath(const std::string& key) {
   }
 
   std::string key_path;
-  key_path.reserve(key.size() + 1);  // Reservar espacio suficiente en el búfer
+  key_path.reserve(2 * key.size() + 1);
 
   for (char c : key) {
     key_path.push_back('/');
@@ -33,7 +33,7 @@ SEXP loadTrie(const std::string& trieStr) {
 SEXP buildTrie(const Rcpp::CharacterVector& keys, const Rcpp::CharacterVector& values, const std::string& id) {
   json trie;
   const Rcpp::LogicalVector keys_na = Rcpp::is_na(keys);
-  const int size = keys.size(); // Almacenar el tamaño de las CharacterVector de antemano
+  const int size = keys.size();
 
   for (int i = 0; i < size; i++) {
     if (!keys_na[i]) {
@@ -54,7 +54,7 @@ int addKeysWords(SEXP ptr, const Rcpp::CharacterVector& keys, const Rcpp::Charac
   Rcpp::XPtr<json> trie(ptr);
   int counter = 0;
   const Rcpp::LogicalVector keys_na = Rcpp::is_na(keys);
-  const int size = keys.size(); // Almacenar el tamaño de las CharacterVector de antemano
+  const int size = keys.size();
 
   for (int i = 0; i < size; ++i) {
     if (!keys_na[i]) {
@@ -91,7 +91,6 @@ Rcpp::LogicalVector containKeys(SEXP ptr, const Rcpp::CharacterVector& keys, con
   return is_in;
 }
 
-// NEEDED TO TEST
 // [[Rcpp::export]]
 Rcpp::StringVector getWords(SEXP ptr, const Rcpp::CharacterVector& keys, const std::string& id) {
   const Rcpp::XPtr<json> trie(ptr);
