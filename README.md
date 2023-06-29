@@ -5,9 +5,9 @@
 
 <!-- badges: start -->
 
-[![R-CMD-check](https://github.com/AbrJA/rflashtext/workflows/R-CMD-check/badge.svg)](https://github.com/AbrJA/rflashtext/actions)
-[![Grand-total](https://cranlogs.r-pkg.org/badges/grand-total/rflashtext)](https://cran.r-project.org/web/packages/rflashtext/index.html)
-[![Per-month](https://cranlogs.r-pkg.org/badges/rflashtext)](https://cran.r-project.org/web/packages/rflashtext/index.html)
+[![R-CMD-check](https://github.com/AbrJA/rflashtext/workflows/R-CMD-check/badge.svg)](https://cran.r-project.org/web/checks/check_results_rflashtext.html)
+[![Grand-total](https://cranlogs.r-pkg.org/badges/grand-total/rflashtext)](https://github.com/AbrJA/rflashtext/actions)
+[![Per-month](https://cranlogs.r-pkg.org/badges/rflashtext)](https://CRAN.R-project.org/package=rflashtext)
 <!-- badges: end -->
 
 *rflashtext* **can be used to find and replace words in a given text
@@ -20,8 +20,7 @@ python library [flashtext](https://github.com/vi3k6i5/flashtext).
 ## Installation
 
 You can install the released version of rflashtext from
-[CRAN](https://cran.r-project.org/web/packages/rflashtext/index.html)
-with:
+[CRAN](https://CRAN.R-project.org/package=rflashtext) with:
 
 ``` r
 install.packages("rflashtext")
@@ -31,7 +30,7 @@ And the development version from
 [GitHub](https://github.com/AbrJA/rflashtext) with:
 
 ``` r
-# install.packages("devtools")
+install.packages("devtools")
 devtools::install_github("AbrJA/rflashtext")
 ```
 
@@ -42,23 +41,6 @@ This is a basic example which shows you how to use the API:
 ### New processor
 
 ``` r
-devtools::install_github("AbrJA/rflashtext@rcpp")
-#> Using github PAT from envvar GITHUB_PAT
-#> Downloading GitHub repo AbrJA/rflashtext@rcpp
-#> 
-#> ── R CMD build ─────────────────────────────────────────────────────────────────
-#>      checking for file ‘/tmp/RtmpadfmoT/remotes952d7a4d20/AbrJA-rflashtext-01473d2/DESCRIPTION’ ...  ✔  checking for file ‘/tmp/RtmpadfmoT/remotes952d7a4d20/AbrJA-rflashtext-01473d2/DESCRIPTION’
-#>   ─  preparing ‘rflashtext’:
-#>    checking DESCRIPTION meta-information ...  ✔  checking DESCRIPTION meta-information
-#> ─  cleaning src
-#>   ─  checking for LF line-endings in source and make files and shell scripts
-#>   ─  checking for empty or unneeded directories
-#>   ─  building ‘rflashtext_0.1.0.tar.gz’
-#>      
-#> 
-#> Installing package into '/home/ajaimes/R/x86_64-pc-linux-gnu-library/4.2'
-#> (as 'lib' is unspecified)
-
 library(rflashtext)
 
 processor <- KeywordProcessor$new(keys = c("NY", "LA"), words = c("New York", "Los Angeles"))
@@ -115,4 +97,4 @@ processor$replace_keys(sentences = c("I live in LA and I like NY", "Have you bee
 ```
 
 To see more details about the performance of the algorithm, click
-[here](https://github.com/AbrJA/rflashtext_benchmark.git).
+[here](https://github.com/AbrJA/rflashtext_benchmark).
