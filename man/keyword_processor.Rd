@@ -95,18 +95,18 @@ new_sentence
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-new}{\code{keyword_processor$new()}}
-\item \href{#method-show_attrs}{\code{keyword_processor$show_attrs()}}
-\item \href{#method-add_keys_words}{\code{keyword_processor$add_keys_words()}}
-\item \href{#method-contain_keys}{\code{keyword_processor$contain_keys()}}
-\item \href{#method-get_words}{\code{keyword_processor$get_words()}}
-\item \href{#method-find_keys}{\code{keyword_processor$find_keys()}}
-\item \href{#method-replace_keys}{\code{keyword_processor$replace_keys()}}
+\item \href{#method-keyword_processor-new}{\code{keyword_processor$new()}}
+\item \href{#method-keyword_processor-show_attrs}{\code{keyword_processor$show_attrs()}}
+\item \href{#method-keyword_processor-add_keys_words}{\code{keyword_processor$add_keys_words()}}
+\item \href{#method-keyword_processor-contain_keys}{\code{keyword_processor$contain_keys()}}
+\item \href{#method-keyword_processor-get_words}{\code{keyword_processor$get_words()}}
+\item \href{#method-keyword_processor-find_keys}{\code{keyword_processor$find_keys()}}
+\item \href{#method-keyword_processor-replace_keys}{\code{keyword_processor$replace_keys()}}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-new"></a>}}
-\if{latex}{\out{\hypertarget{method-new}{}}}
+\if{html}{\out{<a id="method-keyword_processor-new"></a>}}
+\if{latex}{\out{\hypertarget{method-keyword_processor-new}{}}}
 \subsection{Method \code{new()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{keyword_processor$new(
@@ -143,8 +143,8 @@ processor
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-show_attrs"></a>}}
-\if{latex}{\out{\hypertarget{method-show_attrs}{}}}
+\if{html}{\out{<a id="method-keyword_processor-show_attrs"></a>}}
+\if{latex}{\out{\hypertarget{method-keyword_processor-show_attrs}{}}}
 \subsection{Method \code{show_attrs()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{keyword_processor$show_attrs(attrs = "all")}\if{html}{\out{</div>}}
@@ -175,8 +175,8 @@ processor$show_attrs(attrs = "dict")
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-add_keys_words"></a>}}
-\if{latex}{\out{\hypertarget{method-add_keys_words}{}}}
+\if{html}{\out{<a id="method-keyword_processor-add_keys_words"></a>}}
+\if{latex}{\out{\hypertarget{method-keyword_processor-add_keys_words}{}}}
 \subsection{Method \code{add_keys_words()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{keyword_processor$add_keys_words(keys, words = NULL)}\if{html}{\out{</div>}}
@@ -210,8 +210,8 @@ correct
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-contain_keys"></a>}}
-\if{latex}{\out{\hypertarget{method-contain_keys}{}}}
+\if{html}{\out{<a id="method-keyword_processor-contain_keys"></a>}}
+\if{latex}{\out{\hypertarget{method-keyword_processor-contain_keys}{}}}
 \subsection{Method \code{contain_keys()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{keyword_processor$contain_keys(keys)}\if{html}{\out{</div>}}
@@ -241,8 +241,8 @@ processor$contain_keys(keys = c("NY", "LA", "TX"))
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-get_words"></a>}}
-\if{latex}{\out{\hypertarget{method-get_words}{}}}
+\if{html}{\out{<a id="method-keyword_processor-get_words"></a>}}
+\if{latex}{\out{\hypertarget{method-keyword_processor-get_words}{}}}
 \subsection{Method \code{get_words()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{keyword_processor$get_words(keys)}\if{html}{\out{</div>}}
@@ -272,8 +272,8 @@ processor$get_words(keys = c("NY", "LA", "TX"))
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-find_keys"></a>}}
-\if{latex}{\out{\hypertarget{method-find_keys}{}}}
+\if{html}{\out{<a id="method-keyword_processor-find_keys"></a>}}
+\if{latex}{\out{\hypertarget{method-keyword_processor-find_keys}{}}}
 \subsection{Method \code{find_keys()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{keyword_processor$find_keys(sentence, span_info = TRUE)}\if{html}{\out{</div>}}
@@ -306,8 +306,8 @@ do.call(rbind, words_found)
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-replace_keys"></a>}}
-\if{latex}{\out{\hypertarget{method-replace_keys}{}}}
+\if{html}{\out{<a id="method-keyword_processor-replace_keys"></a>}}
+\if{latex}{\out{\hypertarget{method-keyword_processor-replace_keys}{}}}
 \subsection{Method \code{replace_keys()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{keyword_processor$replace_keys(sentence)}\if{html}{\out{</div>}}

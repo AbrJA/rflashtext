@@ -1,20 +1,23 @@
 Package: rflashtext
 Title: FlashText Algorithm for Finding and Replacing Words 
-Version: 0.1.0
+Version: 1.0.0
 Authors@R: 
     person(given = "Abraham",
            family = "Jaimes",
            role = c("aut", "cre"),
-           email = "ajaimes@occ.com.mx")
+           email = "abraham.jaimes.mx@gmail.com")
 Description: Implementation of the FlashText algorithm, by Singh (2017) <arXiv:1711.00046>. It can be used to find and replace words in a given text with only one pass over the document.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.1
+RoxygenNote: 7.2.3
 Suggests: 
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
 URL: https://github.com/AbrJA/rflashtext
 BugReports: https://github.com/AbrJA/rflashtext/issues
 Imports: 
-    R6
+    R6,
+    Rcpp
+LinkingTo: 
+    Rcpp

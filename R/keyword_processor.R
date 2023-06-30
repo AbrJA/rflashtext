@@ -36,6 +36,7 @@ keyword_processor <- R6::R6Class(
       stopifnot(is.logical(ignore_case) && length(ignore_case) != 0)
       stopifnot(is.character(word_chars) && !identical(word_chars, "") && !identical(word_chars, NA_character_) && length(word_chars) != 0)
       stopifnot(is.null(dict) || is.list(dict))
+      message("Use `KeywordProcessor` instead for better performance")
       initiated <- private$set_attr(id = "_word_", ignore_case = ignore_case, word_chars = word_chars, dict = dict)
       invisible(initiated)
     },
@@ -52,7 +53,7 @@ keyword_processor <- R6::R6Class(
     #' processor$show_attrs(attrs = "dict_size")
     #' processor$show_attrs(attrs = "dict")
     show_attrs = function(attrs = "all") {
-      if("all" %in% attrs) {
+      if ("all" %in% attrs) {
         return(private$attrs)
       }
       attrs <- attrs[attrs %in% names(private$attrs)]
@@ -79,17 +80,20 @@ keyword_processor <- R6::R6Class(
     add_keys_words = function(keys, words = NULL) {
       stopifnot(is.character(keys) && !identical(keys, "") && !identical(keys, NA_character_) && length(keys) != 0)
       len <- length(keys)
-      if(!is.null(words)) {
+      if (!is.null(words)) {
         stopifnot(is.character(words) && len == length(words))
       } else {
         words <- keys
       }
-      if(private$attrs$ignore_case) {
+      if (private$attrs$ignore_case) {
         keys <- tolower(keys)
       }
       added <- vector("logical", len)
-      for(k in 1:len) {
+      for (k in 1:len) {
         added[k] <- private$add_key_word(key = keys[k], word = words[k])
+      }
+      if (any(!added)) {
+        warning("There are duplicate keys. To a better check assign the output to a variable.")
       }
       invisible(added)
     },
@@ -106,12 +110,12 @@ keyword_processor <- R6::R6Class(
     #' processor$contain_keys(keys = c("NY", "LA", "TX"))
     contain_keys = function(keys) {
       stopifnot(is.character(keys) && !identical(keys, "") && !identical(keys, NA_character_) && length(keys) != 0)
-      if(private$attrs$ignore_case) {
+      if (private$attrs$ignore_case) {
         keys <- tolower(keys)
       }
       len <- length(keys)
       contained <- vector("logical", len)
-      for(k in 1:len) {
+      for (k in 1:len) {
         contained[k] <- private$contain_key(key = keys[k])
       }
       return(contained)
@@ -129,12 +133,12 @@ keyword_processor <- R6::R6Class(
     #' processor$get_words(keys = c("NY", "LA", "TX"))
     get_words = function(keys) {
       stopifnot(is.character(keys) && !identical(keys, "") && !identical(keys, NA_character_) && length(keys) != 0)
-      if(private$attrs$ignore_case) {
+      if (private$attrs$ignore_case) {
         keys <- tolower(keys)
       }
       len <- length(keys)
       words <- vector("character", len)
-      for(k in 1:len) {
+      for (k in 1:len) {
         words[k] <- private$get_word(key = keys[k])
       }
       return(words)
@@ -154,7 +158,7 @@ keyword_processor <- R6::R6Class(
     #' do.call(rbind, words_found)
     find_keys = function(sentence, span_info = TRUE) {
       stopifnot(is.character(sentence) && length(sentence) == 1 && !identical(sentence, "") && !identical(sentence, NA_character_))
-      if(private$attrs$ignore_case) {
+      if (private$attrs$ignore_case) {
         sentence <- tolower(sentence)
       }
       found <- private$find_key(sentence = sentence, span_info = span_info)
@@ -190,11 +194,11 @@ keyword_processor <- R6::R6Class(
     ),
     #-----------------------------------------------------------------
     set_attr = function(id, ignore_case, word_chars, dict) {
-      if(is.null(dict)) {
+      if (is.null(dict)) {
         dict <- list("_class_" = "keyword_dictionary")
-      } else if(!identical(dict[["_class_"]], "keyword_dictionary")) {
-          warning("Invalid dictionary. Using an empty dictionary.")
-          dict <- list("_class_" = "keyword_dictionary")
+      } else if (!identical(dict[["_class_"]], "keyword_dictionary")) {
+        warning("Invalid dictionary. Using an empty dictionary.")
+        dict <- list("_class_" = "keyword_dictionary")
       }
       private$attrs$id <- id
       private$attrs$ignore_case <- ignore_case
@@ -208,27 +212,24 @@ keyword_processor <- R6::R6Class(
       dict <- private$attrs$dict
       key <- strsplit(key, split = "", fixed = TRUE)[[1]]
       counter <- 0
-      for(letter in key) {
+      for (letter in key) {
         counter <- counter + 1
         dict <- dict[[letter]]
-        if(is.null(dict)) {
+        if (is.null(dict)) {
           break
         }
       }
-      if(is.null(private$attrs$dict[[key[1:counter]]][[private$attrs$id]])) {
+      if (is.null(private$attrs$dict[[key[1:counter]]][[private$attrs$id]])) {
         status <- TRUE
         private$attrs$dict_size <- private$attrs$dict_size + 1
       }
-      while(counter <= length(key)) {
-        if(counter == length(key)) {
+      while (counter <= length(key)) {
+        if (counter == length(key)) {
           private$attrs$dict[[key[1:counter]]][private$attrs$id] <- list(word)
         } else {
           private$attrs$dict[[key[1:counter]]] <- list()
         }
         counter <- counter + 1
-      }
-      if(!status) {
-        warning("There are duplicate keys. To a better check assign the output to a variable.")
       }
       return(status)
     },
@@ -237,10 +238,10 @@ keyword_processor <- R6::R6Class(
       dict <- private$attrs$dict
       key <- strsplit(key, split = "", fixed = TRUE)[[1]]
       counter <- 0
-      for(letter in key) {
+      for (letter in key) {
         counter <- counter + 1
         dict <- dict[[letter]]
-        if(is.null(dict)) {
+        if (is.null(dict)) {
           break
         }
       }
@@ -251,14 +252,14 @@ keyword_processor <- R6::R6Class(
       dict <- private$attrs$dict
       key <- strsplit(key, split = "", fixed = TRUE)[[1]]
       counter <- 0
-      for(letter in key) {
+      for (letter in key) {
         counter <- counter + 1
         dict <- dict[[letter]]
-        if(is.null(dict)) {
+        if (is.null(dict)) {
           break
         }
       }
-      if(!is.null(dict[[private$attrs$id]]) && counter == length(key)) {
+      if (!is.null(dict[[private$attrs$id]]) && counter == length(key)) {
         return(dict[[private$attrs$id]])
       }
       return(NA_character_)
@@ -267,7 +268,7 @@ keyword_processor <- R6::R6Class(
     find_key = function(sentence, span_info) {
       words_found <- list()
       dict <- private$attrs$dict
-      if(!length(dict)) {
+      if (!length(dict)) {
         warning("No key-words in the dictionary. Add keys-words first")
         return(words_found)
       }
@@ -278,48 +279,48 @@ keyword_processor <- R6::R6Class(
       sentence <- strsplit(sentence, split = "", fixed = TRUE)[[1]]
       len <- length(sentence)
       counter <- 1
-      while(idx <= len) {
+      while (idx <= len) {
         char <- sentence[idx]
-        if(!char %in% private$attrs$word_chars) {
-          if(!is.null(dict[[private$attrs$id]]) || !is.null(dict[[char]])) {
+        if (!char %in% private$attrs$word_chars) {
+          if (!is.null(dict[[private$attrs$id]]) || !is.null(dict[[char]])) {
             sequence <- NULL
             longest_sequence <- NULL
             longer <- FALSE
             inner_char <- "<eof>"
-            if(!is.null(dict[[private$attrs$id]])) {
+            if (!is.null(dict[[private$attrs$id]])) {
               sequence <- dict[[private$attrs$id]]
               longest_sequence <- dict[[private$attrs$id]]
               end_pos <- idx
             }
-            if(!is.null(dict[[char]])) {
+            if (!is.null(dict[[char]])) {
               dict_cont <- dict[[char]]
               idy <- idx + 1
-              while(idy <= len) {
+              while (idy <= len) {
                 inner_char <- sentence[idy]
-                if(!inner_char %in% private$attrs$word_chars && !is.null(dict_cont[[private$attrs$id]])) {
+                if (!inner_char %in% private$attrs$word_chars && !is.null(dict_cont[[private$attrs$id]])) {
                   longest_sequence <- dict_cont[[private$attrs$id]]
                   end_pos <- idy
                   longer <- TRUE
                 }
-                if(!is.null(dict_cont[[inner_char]])) {
+                if (!is.null(dict_cont[[inner_char]])) {
                   dict_cont <- dict_cont[[inner_char]]
                 } else {
                   break
                 }
                 idy <- idy + 1
               }
-              if((idy > len || !inner_char %in% private$attrs$word_chars) && !is.null(dict_cont[[private$attrs$id]])) {
+              if ((idy > len || !inner_char %in% private$attrs$word_chars) && !is.null(dict_cont[[private$attrs$id]])) {
                 longest_sequence <- dict_cont[[private$attrs$id]]
                 end_pos <- idy
                 longer <- TRUE
               }
-              if(longer) {
+              if (longer) {
                 idx <- end_pos
               }
             }
             dict <- private$attrs$dict
-            if(!is.null(longest_sequence)) {
-              if(span_info) {
+            if (!is.null(longest_sequence)) {
+              if (span_info) {
                 words_found[[counter]] <- list(word = longest_sequence, start = start_pos, end = idx)
               } else {
                 words_found[[counter]] <- list(word = longest_sequence)
@@ -331,25 +332,25 @@ keyword_processor <- R6::R6Class(
             dict <- private$attrs$dict
             reset_dict <- TRUE
           }
-        } else if(!is.null(dict[[char]])) {
+        } else if (!is.null(dict[[char]])) {
           dict <- dict[[char]]
         } else {
           dict <- private$attrs$dict
           reset_dict <- TRUE
           idy <- idx + 1
-          while(idy <= len) {
+          while (idy <= len) {
             char <- sentence[idy]
-            if(!char %in% private$attrs$word_chars) {
+            if (!char %in% private$attrs$word_chars) {
               break
             }
             idy <- idy + 1
           }
           idx <- idy
         }
-        if(idx + 1 > len) {
-          if(!is.null(dict[[private$attrs$id]])) {
+        if (idx + 1 > len) {
+          if (!is.null(dict[[private$attrs$id]])) {
             sequence <- dict[[private$attrs$id]]
-            if(span_info) {
+            if (span_info) {
               words_found[[counter]] <- list(word = sequence, start = start_pos, end = idx)
             } else {
               words_found[[counter]] <- list(word = sequence)
@@ -358,7 +359,7 @@ keyword_processor <- R6::R6Class(
           }
         }
         idx <- idx + 1
-        if(reset_dict) {
+        if (reset_dict) {
           reset_dict <- FALSE
           start_pos <- idx
         }
@@ -369,13 +370,13 @@ keyword_processor <- R6::R6Class(
     replace_key = function(sentence) {
       words_found <- list()
       dict <- private$attrs$dict
-      if(!length(dict)) {
+      if (!length(dict)) {
         warning("No key-words in the dictionary. Add keys-words first")
         return(words_found)
       }
       new_sentence <- sentence
       new_sentence <- strsplit(new_sentence, split = "", fixed = TRUE)[[1]]
-      if(private$attrs$ignore_case) {
+      if (private$attrs$ignore_case) {
         sentence <- tolower(sentence)
       }
       start_pos <- 1
@@ -384,47 +385,47 @@ keyword_processor <- R6::R6Class(
       idx <- 1
       sentence <- strsplit(sentence, split = "", fixed = TRUE)[[1]]
       len <- length(sentence)
-      while(idx <= len) {
+      while (idx <= len) {
         char <- sentence[idx]
-        if(!char %in% private$attrs$word_chars) {
-          if(!is.null(dict[[private$attrs$id]]) || !is.null(dict[[char]])) {
+        if (!char %in% private$attrs$word_chars) {
+          if (!is.null(dict[[private$attrs$id]]) || !is.null(dict[[char]])) {
             sequence <- NULL
             longest_sequence <- NULL
             longer <- FALSE
             inner_char <- "<eof>"
-            if(!is.null(dict[[private$attrs$id]])) {
+            if (!is.null(dict[[private$attrs$id]])) {
               sequence <- dict[[private$attrs$id]]
               longest_sequence <- dict[[private$attrs$id]]
               end_pos <- idx
             }
-            if(!is.null(dict[[char]])) {
+            if (!is.null(dict[[char]])) {
               dict_cont <- dict[[char]]
               idy <- idx + 1
-              while(idy <= len) {
+              while (idy <= len) {
                 inner_char <- sentence[idy]
-                if(!inner_char %in% private$attrs$word_chars && !is.null(dict_cont[[private$attrs$id]])) {
+                if (!inner_char %in% private$attrs$word_chars && !is.null(dict_cont[[private$attrs$id]])) {
                   longest_sequence <- dict_cont[[private$attrs$id]]
                   end_pos <- idy
                   longer <- TRUE
                 }
-                if(!is.null(dict_cont[[inner_char]])) {
+                if (!is.null(dict_cont[[inner_char]])) {
                   dict_cont <- dict_cont[[inner_char]]
                 } else {
                   break
                 }
                 idy <- idy + 1
               }
-              if((idy > len || !inner_char %in% private$attrs$word_chars) && !is.null(dict_cont[[private$attrs$id]])) {
+              if ((idy > len || !inner_char %in% private$attrs$word_chars) && !is.null(dict_cont[[private$attrs$id]])) {
                 longest_sequence <- dict_cont[[private$attrs$id]]
                 end_pos <- idy
                 longer <- TRUE
               }
-              if(longer) {
+              if (longer) {
                 idx <- end_pos
               }
             }
             dict <- private$attrs$dict
-            if(!is.null(longest_sequence)) {
+            if (!is.null(longest_sequence)) {
               new_sentence[start_pos:(idx - 1)] <- ""
               new_sentence[start_pos] <- longest_sequence
             }
@@ -433,30 +434,30 @@ keyword_processor <- R6::R6Class(
             dict <- private$attrs$dict
             reset_dict <- TRUE
           }
-        } else if(!is.null(dict[[char]])) {
+        } else if (!is.null(dict[[char]])) {
           dict <- dict[[char]]
         } else {
           dict <- private$attrs$dict
           reset_dict <- TRUE
           idy <- idx + 1
-          while(idy <= len) {
+          while (idy <= len) {
             char <- sentence[idy]
-            if(!char %in% private$attrs$word_chars) {
+            if (!char %in% private$attrs$word_chars) {
               break
             }
             idy <- idy + 1
           }
           idx <- idy
         }
-        if(idx + 1 > len) {
-          if(!is.null(dict[[private$attrs$id]])) {
+        if (idx + 1 > len) {
+          if (!is.null(dict[[private$attrs$id]])) {
             sequence <- dict[[private$attrs$id]]
             new_sentence[start_pos:idx] <- ""
             new_sentence[start_pos] <- sequence
           }
         }
         idx <- idx + 1
-        if(reset_dict) {
+        if (reset_dict) {
           reset_dict <- FALSE
           start_pos <- idx
         }
