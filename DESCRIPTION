@@ -1,6 +1,6 @@
 Package: rflashtext
 Title: FlashText Algorithm for Finding and Replacing Words 
-Version: 1.0.0
+Version: 1.0.0.9000
 Authors@R: 
     person(given = "Abraham",
            family = "Jaimes",
