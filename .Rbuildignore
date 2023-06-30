@@ -6,3 +6,6 @@
 ^\.github$
 ^CRAN-RELEASE$
 ^CRAN-SUBMISSION$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$

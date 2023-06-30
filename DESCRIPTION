@@ -14,7 +14,8 @@ RoxygenNote: 7.2.3
 Suggests: 
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
-URL: https://github.com/AbrJA/rflashtext
+URL: https://github.com/AbrJA/rflashtext,
+    https://abrja.github.io/rflashtext/
 BugReports: https://github.com/AbrJA/rflashtext/issues
 Imports: 
     R6,
