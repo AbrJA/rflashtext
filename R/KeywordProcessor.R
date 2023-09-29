@@ -177,6 +177,7 @@ KeywordProcessor <- R6::R6Class(
     replace_keys = function(sentences) {
       if (is.null(self$attrs$trie)) stop("Create a trie dictionary first")
       stopifnot(is.character(sentences), length(sentences) > 0)
+      if (self$attrs$ignore_case) sentences <- tolower(sentences)
       replaceKeys(self$attrs$trie, sentences, self$attrs$chars, self$attrs$id)
     }
     #-----------------------------------------------------------------
